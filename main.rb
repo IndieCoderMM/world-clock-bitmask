@@ -1,24 +1,28 @@
-require_relative './utility'
+require_relative './app'
 
-filename = './cities_timezones.json'
+def main 
+    app = App.new 
+    options = ["Show All Cities", "Filter By Timezone", "Add New City"]
 
-# Utility.init_cities filename 
-
-cities = Utility.read_timezones filename
-
-puts "All Cities"
-cities.keys.each {|k| puts k}
-
-print "Filter by timezone >> GMT "
-target_offset = gets.chomp.to_i
-target_bitmask = 1 << (12 + target_offset)
-
-filtered = []
-cities.each do |name, timezone|
-    if timezone.to_i(2) & target_bitmask != 0
-        filtered << name 
+    loop do 
+        app.display_options(options)
+        print "Enter your option >> "
+        command = gets.chomp
+        break if command.downcase == 'x'
+        puts 
+        case command
+        when '1'
+            app.display_cities
+        when '2' 
+            app.filter_cities
+        when '3'
+            puts "Not implemented yet!"
+        else
+            puts "*Invalid Option!"
+        end
     end
+
+    puts "Thanks for using our app!"
 end
 
-puts "Cities with Timezone GMT+ #{target_offset}"
-puts filtered
+main

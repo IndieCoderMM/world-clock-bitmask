@@ -27,20 +27,22 @@ class Utility
 
     def self.init_cities(filename)
         cities = {
-            "moscow"=> Utility.generate_bin(3),
-            "paris" => Utility.generate_bin(2),
-            "berlin" => Utility.generate_bin(2),
-            "amsterdam" => Utility.generate_bin(2),
-            "rome"  => Utility.generate_bin(2),
-            "london" => Utility.generate_bin(1),
-            "dublin" => Utility.generate_bin(1),
-            "new york" => Utility.generate_bin(-4),
-            "los angeles" => Utility.generate_bin(-7),
-            "tokyo" => Utility.generate_bin(9),
-            "beijing" => Utility.generate_bin(8),
-            "mumbai" => Utility.generate_bin(5)
+            "moscow"=> 3,
+            "paris" => 2,
+            "berlin" => 2,
+            "amsterdam" => 2,
+            "rome"  => 2,
+            "london" => 1,
+            "dublin" => 1,
+            "new york" => -4,
+            "los angeles" => -7,
+            "tokyo" => 9,
+            "beijing" => 8,
+            "mumbai" => 5
         }
-        File.write(filename, JSON.generate(cities))
+        data = {}
+        cities.each {|city, tz| data[city] = Utility.generate_bin(tz)}
+        File.write(filename, JSON.generate(data))
     end
 
 end
